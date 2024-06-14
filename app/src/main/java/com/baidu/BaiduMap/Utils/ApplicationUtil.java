@@ -25,6 +25,7 @@ public class ApplicationUtil {
             add("com.tencent.qqmusic");
             add("cn.kuwo.player");
             add("com.banqu.samsung.music");
+            add("com.android.settings");
         }};
         if (CarLinkData.getArrayList(context, CarLinkData.sp_dock_music_pkg).size() == 0) {
             for (String pkgName : musicList) {
@@ -41,6 +42,7 @@ public class ApplicationUtil {
             add("com.autonavi.minimap");
             add("com.autonavi.amapauto");
             add("com.tencent.map");
+            add("com.android.settings");
         }};
         if (CarLinkData.getArrayList(context, CarLinkData.sp_dock_map_pkg).size() == 0) {
             for (String pkgName : mapList) {
@@ -57,6 +59,7 @@ public class ApplicationUtil {
             add("com.samsung.android.dialer");
             add("com.samsung.android.messaging");
             add("com.sec.android.daemonapp");
+            add("com.android.settings");
         }};
         if (CarLinkData.getArrayList(context, CarLinkData.sp_dock_any_pkg).size() == 0) {
             for (String pkgName : anyList) {
@@ -78,6 +81,7 @@ public class ApplicationUtil {
             add("tv.danmaku.bili");
             add("com.ss.android.ugc.aweme");
             add("mark.via");
+            add("com.android.settings");
         }};
         if (CarLinkData.getArrayList(context, CarLinkData.sp_launcher_apps).size() == 0) {
             ArrayList<String> favList = new ArrayList<>();
