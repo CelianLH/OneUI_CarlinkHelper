@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector
+    android:height="30.0dip"
+    android:width="30.0dip"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <path
+        android:fillColor="@color/battery_charging_logo_color"
+        android:pathData="M14.828,10.365L12.091,10.365C11.929,10.365 11.817,10.204 11.873,10.052L13.409,6.596C13.465,6.444 13.352,6.282 13.19,6.282L10.575,6.282C10.481,6.282 10.396,6.338 10.359,6.425L8.079,11.911C8.015,12.065 8.127,12.234 8.294,12.234L10.851,12.234C11.009,12.234 11.122,12.389 11.072,12.539L9.502,17.304C9.36,17.788 9.923,17.84 10.091,17.5L15.025,10.722C15.122,10.566 15.011,10.365 14.828,10.365Z"
+        android:strokeColor="#00000000"
+        android:strokeWidth="1.0"
+        android:fillType="nonZero" />
+</vector>

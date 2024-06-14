@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<com.baidu.BaiduMap.Views.AppInfoLayout
+    android:id="@+id/appInfoLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_gravity="center|top"
+    android:orientation="vertical"
+    tools:viewBindingIgnore="true">
+
+
+
+</com.baidu.BaiduMap.Views.AppInfoLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center|bottom"
+        android:gravity="center">
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/github_btn"
+        style="@style/OneUI.AppInfoButton"
+        android:text="@string/github" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/developer_btn"
+        style="@style/OneUI.AppInfoButton"
+        android:text="@string/developer" />
+    </LinearLayout>
+</LinearLayout>

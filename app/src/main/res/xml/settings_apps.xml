@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/preference_category_dock_apps">
+
+        <SeslSwitchPreferenceScreen
+            android:defaultValue="true"
+            android:key="dock_music"
+            android:title="@string/preference_dock_music" />
+        <SeslSwitchPreferenceScreen
+            android:defaultValue="true"
+            android:key="dock_map"
+            android:title="@string/preference_dock_map" />
+        <SeslSwitchPreferenceScreen
+            android:defaultValue="true"
+            android:key="dock_any"
+            android:title="@string/preference_dock_anyapp" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="dock_bixby"
+            android:title="@string/preference_dock_bixby" />
+        <ListPreference
+            android:entries="@array/preferences_dock_home_entries"
+            android:entryValues="@array/preferences_dock_home_values"
+            android:key="dock_home"
+            app:defaultValue="0"
+            android:title="@string/preference_dock_home"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="@string/preference_category_app_launcher">
+        <PreferenceScreen
+            android:key="launcher_apps"
+            android:title="@string/preference_app_launcher_apps_select"/>
+        <dev.oneuiproject.oneui.preference.SeekBarPreferencePro
+            android:key="launcher_colum"
+            android:defaultValue="5"
+            android:max="6"
+            android:title="@string/preference_app_launcher_colum"
+            app:adjustable="true"
+            app:min="3"
+            app:showTickMark="true" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="launcher_name"
+            android:title="@string/preference_app_launcher_name" />
+        <EditTextPreference
+            android:defaultValue="120"
+            android:key="launcher_icon_size"
+            android:title="@string/preference_app_launcher_icon_size"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

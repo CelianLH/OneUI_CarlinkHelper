@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <dev.oneuiproject.oneui.widget.RoundFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:roundedCorners="bottom_left|bottom_right">
+
+        <androidx.apppickerview.widget.AppPickerView
+            android:id="@+id/apppicker_list_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/oui_background_color" />
+        <TextView
+            android:id="@+id/apppicker_list_tip_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:text="@string/app_tip_select"/>
+
+    </dev.oneuiproject.oneui.widget.RoundFrameLayout>
+
+    <dev.oneuiproject.oneui.widget.Separator
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <dev.oneuiproject.oneui.widget.RoundFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        app:roundedCorners="top_left|top_right"
+        android:layout_weight="1">
+
+        <androidx.apppickerview.widget.AppPickerView
+            android:id="@+id/apppicker_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/oui_background_color" />
+        <androidx.appcompat.widget.SeslProgressBar
+            android:id="@+id/apppicker_progress"
+            style="@style/Widget.AppCompat.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </dev.oneuiproject.oneui.widget.RoundFrameLayout>
+
+</LinearLayout>

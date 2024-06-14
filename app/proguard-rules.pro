@@ -1,0 +1,20 @@
+-keep class android.** {*;}
+-keep class javax.** {*;}
+-keep interface javax.** {*;}
+-keep class * implements javax.** {*;}
+-keep class com.google.gson.reflect.** {*;}
+-keep class okhttp3.** {*;}
+-keep class okio.** {*;}
+-keep class com.baidu.helios.** {*;}
+-keep class org.jsoup.** {*;}
+-keep class org.jsoup.**
+-keep class org.jspecify.** {*;}
+-keep class org.jspecify.**
+-keep class * implements org.jsoup.** {*;}
+-keep class * implements androidx.preference.PreferenceFragmentCompat
+-keep class * implements androidx.fragment.app.Fragment
+-keepattributes Signature
+-keep class com.google.gson.reflect.TypeToken { *; }
+-keep class * extends com.google.gson.reflect.TypeToken
+-keepattributes AnnotationDefault,RuntimeVisibleAnnotations
+-dontwarn org.jspecify.annotations.NullMarked

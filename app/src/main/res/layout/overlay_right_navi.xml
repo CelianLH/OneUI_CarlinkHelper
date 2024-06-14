@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    app:cardBackgroundColor="@color/transparent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="24dp">
+
+    <LinearLayout
+        android:id="@+id/widget_right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@color/navi_bg"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/navi_home"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/effect_press"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginVertical="5dp"
+                android:foreground="@drawable/map_home_round" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="回家"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/time_text"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="0dp"
+            android:background="#4D808080" />
+    <LinearLayout
+        android:id="@+id/navi_company"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/effect_press"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginVertical="5dp"
+            android:foreground="@drawable/map_company_round" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="去公司"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/time_text"/>
+    </LinearLayout><View
+        android:layout_width="1dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="0dp"
+        android:background="#4D808080" />
+        <LinearLayout
+            android:id="@+id/navi_cruise"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/effect_press"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginVertical="5dp"
+                android:foreground="@drawable/map_cruise_round" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="巡航"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/time_text"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

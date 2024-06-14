@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetLeft="4.0dip"
+    android:insetRight="4.0dip">
+    <ripple android:color="@color/daynight_go_to_top_icon_background_color">
+        <item android:state_pressed="true"
+            android:left="12dp"
+            android:right="12dp"
+            android:top="6dp"
+            android:bottom="6dp">
+            <!-- 定义当button 处于pressed 状态时的形态。-->
+            <shape>
+                <solid android:color="?colorControlHighlight" />
+                <!-- 设置按钮的四个角为弧形 -->
+                <!-- android:radius 弧形的半径 -->
+                <corners android:radius="@dimen/oneui_radius" />
+            </shape>
+        </item>
+        <item
+            android:id="@android:id/mask"
+            android:drawable="@drawable/sesl_dialog_btn_default_ripple_shape_mask"
+            android:left="12dp"
+            android:right="12dp"
+            android:top="6dp"
+            android:bottom="6dp" />
+    </ripple>
+</inset>

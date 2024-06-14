@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">Carlink Helper</string>
+
+
+    <string name="music_guide">Read notification permission not enabled</string>
+
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_sys">System Default</string>
+    <string name="tab_overlay">Overlay</string>
+    <string name="tab_apps">Apps</string>
+    <string name="tab_theme">Theme</string>
+    <string name="preference_enable_overlay">Overlay View</string>
+    <string name="preference_enable_overlay_right">Enable Right Widget Overlay</string>
+    <string name="preference_width_right_overlay">Right Widget Width</string>
+    <string name="preference_category_overlay_right">Right Widget Overlay</string>
+    <string name="preference_category_overlay_left">Left Dock Overlay</string>
+    <string name="preference_width_left_overlay">Left Dock Width</string>
+    <string name="preference_category_dock_apps">Dock Apps</string>
+    <string name="preference_dock_map">Map</string>
+    <string name="preference_dock_music">Music</string>
+    <string name="preference_dock_anyapp">Any App</string>
+    <string name="preference_dock_bixby">Bixby</string>
+    <string name="preference_dock_home">Home</string>
+    <string name="preference_category_app_launcher">App Launcher</string>
+    <string name="preference_app_launcher_colum">Colum</string>
+    <string name="preference_dock_home_only">Home Only</string>
+    <string name="preference_dock_home_launcher">Home And Launcher</string>
+    <string name="preference_app_launcher_name">Show App Name</string>
+    <string name="preference_app_launcher_icon_size">Icon Size</string>
+    <string name="preference_app_launcher_apps_select">Select Apps</string>
+    <string name="preference_tip_btn_permission">To grant permissions</string>
+    <string name="preference_tip_permission">Necessary permissions</string>
+    <string name="preference_tip_permission_summary">Lack of necessary permissions will affect usage</string>
+    <string name="preference_theme_main">Color Mode</string>
+    <string name="preference_theme_enable_picture">Enable Picture Background</string>
+    <string name="preference_theme_bg_dock">Dock Background</string>
+    <string name="preference_theme_color_dock">Dock Color</string>
+    <string name="preference_theme_bg_launcher">Launcher Background</string>
+    <string name="preference_theme_color_launcher">Launcher Color</string>
+    <string name="save">Save</string>
+    <string name="title_dialog_pick_app">Pick Application</string>
+    <string name="app_tip_select">Please Select Application</string>
+    <string name="tip_Dock_not_set">"Dock application not set  "</string>
+    <string name="preference_theme_bg_navi">Navi Widget Background</string>
+    <string name="preference_theme_color_navi">Navi Widget Color</string>
+    <string name="preference_theme_use_default_color">Use default  color</string>
+    <string name="preference_overlay_hide_visibility">Floating button fully transparent</string>
+    <string name="preference_overlay_hide_visibility_summary">Click on time to hide Dock</string>
+    <string name="preference_overlay_dock_corner_always">Dock never shows background</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="chinese">Simplified Chinese</string>
+    <string name="default_language">Default</string>
+    <string name="donate">Donate</string>
+    <string name="alipay">Alipay</string>
+    <string name="coolmarket">CoolMarket</string>
+    <string name="not">Not</string>
+    <string name="donate_message">If this app is helpful to you, you can click on the methods below to support developers, or you can visit the author\'s homepage on Cool Market~</string>
+    <string name="github">GitHub</string>
+    <string name="developer">Developer Home</string>
+    <string name="message_first_boot">This application is completely free, and the only publishing platform is \"Cool  Market\". If you obtain this application through payment, you will be deceived</string>
+    <string name="confirm">Confirm</string>
+</resources>

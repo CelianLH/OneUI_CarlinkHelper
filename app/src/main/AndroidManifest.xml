@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<!--    <uses-permission-->
+<!--        android:name="android.permission.WRITE_SETTINGS"-->
+<!--        tools:ignore="ProtectedPermissions" />-->
+<!--    <uses-permission-->
+<!--        android:name="android.permission.WRITE_SECURE_SETTINGS"-->
+<!--        tools:ignore="ProtectedPermissions" />-->
+    <uses-permission
+        android:name="android.permission.STATUS_BAR_SERVICE"
+        tools:ignore="ProtectedPermissions" />
+<!--    <uses-permission-->
+<!--        android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"-->
+<!--        tools:ignore="ProtectedPermissions" />-->
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+<!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+<!--    <uses-permission-->
+<!--        android:name="android.permission.BIND_APPWIDGET"-->
+<!--        tools:ignore="ProtectedPermissions" />-->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission
+        android:name="android.permission.FORCE_STOP_PACKAGES"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+<!--    <uses-permission android:name="android.permission.INTERNET" />-->
+<!--    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+<!--    <uses-permission-->
+<!--        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"-->
+<!--        tools:ignore="ScopedStorage" />-->
+
+    <application
+        android:name=".BaseApplication"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/OneUITheme">
+        <activity
+            android:name=".SettingsActivity"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize"
+            android:launchMode="singleInstance"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".EntranceActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity="map.bar">
+            <intent-filter>
+                <action android:name="vivo.intent.action.carlink.kit" />
+
+                <category android:name="vivo.intent.category.carlink.kit" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="samsung.intent.action.carlink.kit" />
+
+                <category android:name="samsung.intent.category.carlink.kit" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="hicarmap"
+                    android:scheme="baidumap" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MiniMapActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="MiniMapActivity"
+            android:launchMode="singleInstance"
+            android:taskAffinity="map.mini">
+            <intent-filter>
+                <action android:name="samsung.intent.action.carlink.kit.map" />
+
+                <category android:name="samsung.intent.category.carlink.kit.map" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="MainActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"
+            android:taskAffinity="com.banqu.music.CarUI">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="carhost"
+                    android:scheme="banqumusic" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".deeplink.Deeplink"
+            android:configChanges="fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="Deeplink"
+            android:launchMode="singleInstance"
+            android:taskAffinity="deep.exe"
+            android:theme="@style/empty_activity_theme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="tasker"
+                    android:scheme="banqumusic" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".deeplink.DeepLinkService"
+            android:configChanges="fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="DeepLinkService"
+            android:launchMode="singleInstance"
+            android:taskAffinity="deep.exe">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="deeplinkservice"
+                    android:scheme="banqumusic" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".deeplink.MusicServiceDeepLink"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"
+            android:taskAffinity="com.banqu.music.CarUI"
+            android:theme="@style/empty_activity_theme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.banqu.samsung.music"
+                    android:scheme="banqumusic" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".Widget.Music.MusicServiceNotificationReceiver"
+            android:exported="true" />
+
+        <service
+            android:name=".Widget.Music.MediaPlaybackService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Widget.Music.NotificationListener"
+            android:exported="true"
+            android:label="NotificationListener"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="com.baidu.baidumaps.oemdata.OemContentProvider"
+            android:authorities="com.baidu.baidumaps.oemdata.OemContentProvider"
+            android:exported="true" />
+    </application>
+
+</manifest>

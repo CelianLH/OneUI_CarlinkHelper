@@ -1,0 +1,142 @@
+<resources>
+
+    <string-array name="preferences_language_entries">
+        <item>@string/default_language</item>
+        <item>@string/english</item>
+        <item>@string/chinese</item>
+    </string-array>
+    <string-array name="preferences_language_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="preferences_dock_home_entries">
+        <item>@string/preference_dock_home_launcher</item>
+        <item>@string/preference_dock_home_only</item>
+    </string-array>
+    <string-array name="preferences_dock_home_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <array name="preferences_darkmode_entries_image">
+        <item>@drawable/display_help_light_mode</item>
+        <item>@drawable/display_help_dark_mode</item>
+    </array>
+    <string-array name="preferences_darkmode_entries">
+        <item>@string/settings_theme_light</item>
+        <item>@string/settings_theme_dark</item>
+    </string-array>
+    <string-array name="preferences_darkmode_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="preferences_dock_pic_entries">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <array name="preferences_dock_pic_entries_image">
+        <item>@drawable/dock_hover_0</item>
+        <item>@drawable/dock_hover_1</item>
+        <item>@drawable/dock_hover_2</item>
+        <item>@drawable/dock_hover_3</item>
+    </array>
+    <string-array name="preferences_dock_pic_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+
+    <array name="preferences_launcher_entries_image">
+        <item>@drawable/inner_0</item>
+        <item>@drawable/inner_1</item>
+        <item>@drawable/inner_2</item>
+        <item>@drawable/inner_3</item>
+    </array>
+    <array name="preferences_launcher_bg_entries_image">
+        <item>@drawable/wallpaper_0</item>
+        <item>@drawable/wallpaper_1</item>
+        <item>@drawable/wallpaper_2</item>
+        <item>@drawable/wallpaper_3</item>
+    </array>
+    <array name="xposed_scope">
+        <item>com.baidu.carlife</item>
+        <item>com.samsung.android.carlink</item>
+    </array>
+
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+    <string-array name="ui_location_entries">
+        <item>关闭</item>
+        <item>A区域</item>
+        <item>B区域</item>
+        <item>C区域</item>
+    </string-array>
+
+    <string-array name="ui_location_values">
+        <item>false</item>
+        <item>a</item>
+        <item>b</item>
+        <item>c</item>
+    </string-array>
+
+
+    <string-array name="ui_plugin_entries">
+        <item>关闭</item>
+        <item>应用抽屉</item>
+        <item>音乐助手</item>
+        <item>桌面小插件</item>
+        <item>消息盒子</item>
+    </string-array>
+
+
+    <string-array name="ui_plugin_values">
+        <item>false</item>
+        <item>app</item>
+        <item>music</item>
+        <item>widget</item>
+        <item>msgbox</item>
+    </string-array>
+
+    <string-array name="ui_modes_entries">
+        <item>黑暗模式</item>
+        <item>明亮模式</item>
+        <!--        <item>跟随系统</item>-->
+    </string-array>
+
+    <string-array name="ui_modes_values">
+        <item>dark</item>
+        <item>light</item>
+        <!--        <item>system</item>-->
+    </string-array>
+
+
+    <string-array name="godmode_slot_entries">
+        <item>关闭</item>
+        <item>助手主页</item>
+        <item>返回按钮</item>
+    </string-array>
+
+    <string-array name="godmode_slot_values">
+        <item>false</item>
+        <item>home</item>
+        <item>back</item>
+    </string-array>
+
+</resources>

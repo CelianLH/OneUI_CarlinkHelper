@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00000000</color>
+
+
+    <color name="sesl_primary_text_color_light">@color/sesl_text1_light</color>
+    <color name="sesl_text1_light">#ff010102</color>
+
+    <color name="battery_empty_bg_color">#ff47474a</color>
+    <color name="battery_normal_color_light">@color/sesl_primary_text_color_light</color>
+    <color name="battery_charging_logo_color">#aafafaff</color>
+    <color name="signal_logo_color">#aafafaff</color>
+    <color name="time_text">#fffafaff</color>
+    <color name="music_name_dark">#ffdadada</color>
+
+
+    <color name="map_card_home_company_color">#ff455c83</color>
+    <color name="map_card_home_color">#ff455c83</color>
+    <color name="map_card_company_color">#ff455c83</color>
+    <color name="navi_bg">#FF444444</color>
+
+    <color name="music_player_icon">#FFFCFCFC</color>
+    <color name="music_player_progress_front">#FFF6F6F6</color>
+    <color name="music_player_text">#FFFCFCFC</color>
+    <color name="music_player_progress_back">#99CFEAFE</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="ta_background">#FFFFFFFF</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="effect_press">#FF515151</color>
+
+
+
+    <color name="background_color">#ff0d1018</color>
+    <color name="maincard_background_color">#F2373737</color>
+    <color name="text_color">#ffffffff</color>
+
+
+    <color name="cus_notification_text_color">#FFFFFF</color>
+    <color name="cus_notification_background_color">#000000</color>
+
+    <color name="Album_Empty_color">#80FFFFFF</color>
+
+    <color name="Album_musk">#00000000</color>
+
+    <color name="godcolor">#FF555555</color>
+
+
+    <color name="normal_panel">#99000000</color>
+
+    <color name="setting_background_color">#000000</color>
+
+
+    <color name="mainfinal_background_color">#000000</color>
+
+
+
+    <!--    HomePage-->
+    <color name="HomePage_ToolBarBackground">#FFFFFF</color>
+
+
+    <!--OneUITheme-->
+    <color name="OneUI_BackgroundColor">#010101</color>
+    <color name="OneUI_Button_BackgroundColor">#171717</color>
+    <color name="OneUI_Button_Text_Color">#999999</color>
+    <color name="OneUI_Button_Title_TextColor">#FAFAFA</color>
+    <color name="OneUI_Icon_Color">#000000</color>
+    <color name="OneUI_Primary">#F6F6F6</color>
+    <color name="OneUI_Variant">#0381FD</color>
+    <color name="OneUI_colorAccent">#999999</color>
+
+
+    <color name="OneUI_colorControlNormal">#595959</color>
+    <color name="OneUI_colorControlActivated">#0381FD</color>
+    <color name="OneUI_colorAccent_colorControlHighlight">@color/OneUI_Button_BackgroundColor</color>
+    <color name="sem_menu_press">#FFE2E2E2</color>
+    <color name="daynight_go_to_top_icon_background_color">#e63d3d3d</color>
+
+</resources>

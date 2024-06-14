@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/preference_theme_main">
+        <com.baidu.BaiduMap.Utils.HorizontalRadioPreferenceTheme
+            android:key="dark_mode"
+            android:title="Dark mode settings"
+            app:entries="@array/preferences_darkmode_entries"
+            app:entriesImage="@array/preferences_darkmode_entries_image"
+            app:entryValues="@array/preferences_darkmode_values"
+            app:viewType="image"
+            app:imageHeight="200"/>
+
+        <SwitchPreferenceCompat
+            android:key="dark_mode_auto"
+            android:defaultValue="true"
+            android:title="@string/settings_theme_sys" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/preference_theme_bg_dock">
+        <dev.oneuiproject.oneui.preference.ColorPickerPreference
+            android:defaultValue="#A8D4FF"
+            android:key="theme_dock_color"
+            android:title="@string/preference_theme_color_dock"
+            app:showAlphaSlider="true" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="theme_dock_color_use_default"
+            android:title="@string/preference_theme_use_default_color" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="theme_enable_pic_dock"
+            android:title="@string/preference_theme_enable_picture" />
+        <com.baidu.BaiduMap.Utils.HorizontalRadioPreference
+            android:key="theme_dock_pic"
+            android:title="Dark mode settings"
+            android:defaultValue="3"
+            app:entries="@array/preferences_dock_pic_entries"
+            app:entriesImage="@array/preferences_dock_pic_entries_image"
+            app:entryValues="@array/preferences_dock_pic_values"
+            app:viewType="image"
+            app:imageHeight="250"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/preference_theme_bg_launcher">
+        <dev.oneuiproject.oneui.preference.ColorPickerPreference
+            android:defaultValue="#A8D4FF"
+            android:key="theme_color_launcher"
+            android:title="@string/preference_theme_color_launcher"
+            app:showAlphaSlider="true" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="theme_launcher_color_use_default"
+            android:title="@string/preference_theme_use_default_color" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="theme_enable_pic_launcher"
+            android:title="@string/preference_theme_enable_picture" />
+        <com.baidu.BaiduMap.Utils.HorizontalRadioPreference
+            android:key="theme_launcher_pic"
+            android:title="Dark mode settings"
+            android:defaultValue="3"
+            app:entries="@array/preferences_dock_pic_entries"
+            app:entriesImage="@array/preferences_launcher_entries_image"
+            app:entryValues="@array/preferences_dock_pic_values"
+            app:viewType="image"
+            app:imageHeight="150"/>
+        <com.baidu.BaiduMap.Utils.HorizontalRadioPreference
+            android:key="theme_launcher_bg_pic"
+            android:title="Dark mode settings"
+            android:defaultValue="3"
+            app:entries="@array/preferences_dock_pic_entries"
+            app:entriesImage="@array/preferences_launcher_bg_entries_image"
+            app:entryValues="@array/preferences_dock_pic_values"
+            app:viewType="image"
+            app:imageHeight="150"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/preference_theme_bg_navi">
+        <dev.oneuiproject.oneui.preference.ColorPickerPreference
+            android:defaultValue="#A8D4FF"
+            android:key="theme_color_navi"
+            android:title="@string/preference_theme_color_navi"
+            app:showAlphaSlider="true" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="theme_navi_color_use_default"
+            android:title="@string/preference_theme_use_default_color" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            app:isPreferenceVisible="false"
+            android:key="theme_enable_pic_navi"
+            android:title="@string/preference_theme_enable_picture" />
+        <com.baidu.BaiduMap.Utils.HorizontalRadioPreference
+            android:key="theme_navi_pic"
+            android:title="Dark mode settings"
+            android:defaultValue="0"
+            app:isPreferenceVisible="false"
+            app:entries="@array/preferences_dock_pic_entries"
+            app:entriesImage="@array/preferences_launcher_entries_image"
+            app:entryValues="@array/preferences_dock_pic_values"
+            app:viewType="image"
+            app:imageHeight="150"/>
+    </PreferenceCategory>
+</PreferenceScreen>

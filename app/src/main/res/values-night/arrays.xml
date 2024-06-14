@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preferences_launcher_entries_image">
+        <item>@drawable/inner_0</item>
+        <item>@drawable/inner_1</item>
+        <item>@drawable/inner_2</item>
+        <item>@drawable/inner_3</item>
+    </array>
+    <array name="preferences_dock_pic_entries_image">
+        <item>@drawable/dock_hover_0</item>
+        <item>@drawable/dock_hover_1</item>
+        <item>@drawable/dock_hover_2</item>
+        <item>@drawable/dock_hover_3</item>
+    </array>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <dev.oneuiproject.oneui.preference.TipsCardPreference
+        android:key="tip"
+        android:title="@string/preference_tip_permission"
+        android:summary="@string/preference_tip_permission_summary"/>
+
+    <PreferenceCategory android:title="@string/preference_enable_overlay" />
+    <dev.oneuiproject.oneui.preference.SwitchBarPreference
+        android:defaultValue="true"
+        android:key="enable_overlay"
+        android:summary="@string/preference_enable_overlay" />
+
+
+    <PreferenceCategory android:title="@string/preference_category_overlay_right">
+
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="enable_overlay_right"
+            android:title="@string/preference_enable_overlay_right" />
+        <EditTextPreference
+            android:defaultValue="Default text"
+            android:key="overlay_right_width"
+            android:title="@string/preference_width_right_overlay"
+            app:defaultValue="480"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/preference_category_overlay_left">
+
+        <EditTextPreference
+            android:defaultValue="Default text"
+            android:key="overlay_left_width"
+            android:title="@string/preference_width_left_overlay"
+            app:defaultValue="160"
+            app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="overlay_left_hide_visibility"
+            android:title="@string/preference_overlay_hide_visibility"
+            android:summary="@string/preference_overlay_hide_visibility_summary"/>
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="overlay_left_dock_corner_always"
+            android:title="@string/preference_overlay_dock_corner_always" />
+    </PreferenceCategory>
+</PreferenceScreen>
