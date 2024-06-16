@@ -40,6 +40,8 @@ import com.baidu.BaiduMap.MainActivity;
 import com.baidu.BaiduMap.R;
 import com.baidu.BaiduMap.Utils.PhoneUtils;
 import com.baidu.BaiduMap.Utils.SignalStrengthListener;
+import com.baidu.BaiduMap.Utils.Theme.NightModeUtils;
+import com.baidu.BaiduMap.Utils.Theme.ThemeMode;
 import com.baidu.BaiduMap.Utils.ToastUtil;
 import com.baidu.BaiduMap.carlifeapplauncher.adapter.Common;
 import com.baidu.BaiduMap.carlifeapplauncher.adapter.FakeStart;
@@ -48,6 +50,7 @@ import com.baidu.BaiduMap.deeplink.DeepLinkService;
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -128,7 +131,7 @@ public class NavBar {
     }
 
     public NavBar(Context context) {
-        this.context = context;
+        NavBar.context = context;
         this.wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         this.pm = context.getPackageManager();
     }
@@ -148,7 +151,7 @@ public class NavBar {
         isCharging = isCharging(context);
 
         navbar_view = View.inflate(context, R.layout.overlay_dock, null);
-        int opacity = (int) (Double.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString("godmode_opacity", "100")) / 100 * 255);
+        int opacity = (int) (Double.parseDouble(PreferenceManager.getDefaultSharedPreferences(context).getString("godmode_opacity", "100")) / 100 * 255);
         String rgb_string = PreferenceManager.getDefaultSharedPreferences(context).getString("godmode_rgb", "55#55#55");
         String[] rgb_array = rgb_string.split("#");
         int trans = Color.argb(opacity, Integer.parseInt(rgb_array[0]), Integer.parseInt(rgb_array[1]), Integer.parseInt(rgb_array[2]));
@@ -426,9 +429,9 @@ public class NavBar {
                         x2 = motionEvent.getRawX();
                         y2 = motionEvent.getRawY();
 
-                        if (navbar_wrapper.getVisibility() != View.VISIBLE && CarLinkData.getBoolean(context, CarLinkData.sp_overlay_left_hide_visibility, false) != true) {
-                            lp.x += x2 - x1;
-                            lp.y += y2 - y1;
+                        if (navbar_wrapper.getVisibility() != View.VISIBLE && !CarLinkData.getBoolean(context, CarLinkData.sp_overlay_left_hide_visibility, false)) {
+                            lp.x += (int) (x2 - x1);
+                            lp.y += (int) (y2 - y1);
                             wm.updateViewLayout(navbar_view, lp);
                         }
                         x1 = x2;
@@ -497,10 +500,11 @@ public class NavBar {
         constructView("homeIcon");
 
 
-        navbar_view.setMinimumHeight(Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString("min_height", "0")));
+        navbar_view.setMinimumHeight(Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString("min_height", "0")));
         wm.addView(navbar_view, lp);
 
         WindowInsetsControllerCompat controllerCompat = ViewCompat.getWindowInsetsController(navbar_view);
+        assert controllerCompat != null;
         controllerCompat.hide(WindowInsetsCompat.Type.statusBars());
         controllerCompat.hide(WindowInsetsCompat.Type.navigationBars());
         controllerCompat.hide(WindowInsetsCompat.Type.ime());
@@ -599,6 +603,11 @@ public class NavBar {
                         } else {
                             icon.setImageResource(R.drawable.ic_more_app);
                         }
+                        if (Objects.equals(CarLinkData.getStringFromList(context, CarLinkData.sp_dock_map_pkg), CarLinkData.pkgNameAmap)) {
+                            FakeStart.StartMiniMap(context);
+                        } else {
+                            FakeStart.StartCommon(context, CarLinkData.getStringFromList(context, CarLinkData.sp_dock_map_pkg));
+                        }
                         Intent i = new Intent("carlife.intent.action.openpage");
                         i.setClassName("com.baidu.carlife", "com.baidu.carlife.CarlifeActivity");
                         i.putExtra("pageid", 1);
@@ -679,8 +688,7 @@ public class NavBar {
         WindowManager.LayoutParams lp = (WindowManager.LayoutParams) navbar_view.getLayoutParams();
         SharedPreferences s = PreferenceManager.getDefaultSharedPreferences(context);
 //        int widthLeft = Integer.parseInt(s.getString("overlay_left_width", "160"));
-        int widthLeft = CarLinkData.getIntFromString(context,CarLinkData.sp_overlay_left_width,160);
-        lp.width = widthLeft;
+        lp.width = CarLinkData.getIntFromString(context, CarLinkData.sp_overlay_left_width, 160);
         if (visible) {
 
             lp.height = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -696,7 +704,7 @@ public class NavBar {
     }
 
 
-    public class updateTimeReceiver extends BroadcastReceiver {
+    public static class updateTimeReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             Message msg = Message.obtain();
@@ -705,7 +713,7 @@ public class NavBar {
         }
     }
 
-    public class updateBatteryReceiver extends BroadcastReceiver {
+    public static class updateBatteryReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             Message msg = Message.obtain();
@@ -714,12 +722,13 @@ public class NavBar {
         }
     }
 
-    public class chargeReceiver extends BroadcastReceiver {
+    public static class chargeReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
 
             // 处理充电连接事件
+            assert action != null;
             if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
                 isCharging = true;
             }
@@ -738,8 +747,8 @@ public class NavBar {
         Intent batteryBroadcast = context.registerReceiver(null,
                 new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         // 0 means we are discharging, anything else means charging
-        boolean isCharging = batteryBroadcast.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) != 0;
-        return isCharging;
+        assert batteryBroadcast != null;
+        return batteryBroadcast.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) != 0;
     }
 
 //    private static Bitmap drawableToBitmap(Drawable drawable) {
@@ -790,10 +799,13 @@ public class NavBar {
                     R = Color.red(pixel) - brightness;
                     G = Color.green(pixel) - brightness;
                     B = Color.blue(pixel) - brightness;
+                    if (!NightModeUtils.getInstance(context).isDarkThemeOn(context) && A != 0) {
+                        A = A - brightness;
+                    }
                     // 确保RGB值不会小于0或者超过255
-                    R = R < 0 ? 0 : R > 255 ? 255 : R;
-                    G = G < 0 ? 0 : G > 255 ? 255 : G;
-                    B = B < 0 ? 0 : B > 255 ? 255 : B;
+                    R = R < 0 ? 0 : Math.min(R, 255);
+                    G = G < 0 ? 0 : Math.min(G, 255);
+                    B = B < 0 ? 0 : Math.min(B, 255);
                     bmOut.setPixel(j, i, Color.argb(A, R, G, B));
                 } else {
                     if (isCharging) {
@@ -834,8 +846,7 @@ public class NavBar {
     public static Bitmap small(Bitmap bitmap) {
         Matrix matrix = new Matrix();
         matrix.postScale(0.5f, 0.5f); //长和宽放大缩小的比例
-        Bitmap resizeBmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        return resizeBmp;
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -849,8 +860,7 @@ public class NavBar {
     private static String getSystemBattery(Context context) {
         BatteryManager batteryManager = (BatteryManager) context.getSystemService(BATTERY_SERVICE);
         int edgeBattery = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        String per = (edgeBattery) + "%";
-        return per;
+        return (edgeBattery) + "%";
     }
 
     public void onDestroy() {
@@ -871,7 +881,7 @@ public class NavBar {
             try {
                 wm.removeView(navbar_view);
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
 
@@ -887,7 +897,7 @@ public class NavBar {
                 WidgetRight.navbar_view.setVisibility(View.GONE);
             }
 
-            if (navbar_wrapper.getVisibility() == View.VISIBLE&&!CarLinkData.getBoolean(context, CarLinkData.sp_overlay_left_dock_corner_always, false)) {
+            if (navbar_wrapper.getVisibility() == View.VISIBLE && !CarLinkData.getBoolean(context, CarLinkData.sp_overlay_left_dock_corner_always, false)) {
 //                dockContainer.setOutlineProvider(new ViewOutlineProvider() {
 //                    @Override
 //                    public void getOutline(View view, Outline outline) {

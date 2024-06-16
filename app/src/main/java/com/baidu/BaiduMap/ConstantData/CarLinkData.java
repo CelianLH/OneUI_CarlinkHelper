@@ -13,6 +13,7 @@ public final class CarLinkData {
     public static final String sp_enable_overlay = "enable_overlay";
     public static final String sp_enable_overlay_right = "enable_overlay_right";
     public static final String sp_overlay_right_width = "overlay_right_width";
+    public static final String sp_enable_overlay_right_music_icon = "enable_overlay_right_music_icon";
     public static final String sp_overlay_left_width = "overlay_left_width";
     public static final String sp_overlay_left_hide_visibility = "overlay_left_hide_visibility";
     public static final String sp_overlay_left_dock_corner_always = "overlay_left_dock_corner_always";
@@ -159,7 +160,7 @@ public final class CarLinkData {
     public static String getStringFromList(Context context, String key){
         ArrayList<String> stringArrayList = getArrayList(context,key);
         String str = "";
-        if(stringArrayList.size()!=0){
+        if(!stringArrayList.isEmpty()){
             str = stringArrayList.get(0);
         }
         return str;

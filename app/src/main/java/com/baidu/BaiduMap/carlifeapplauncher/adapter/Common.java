@@ -32,6 +32,7 @@ public class Common {
             app.packageName = temp_info.packageName;
             app.icon = temp_info.loadIcon(pm);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return app;
     }
@@ -77,12 +78,12 @@ public class Common {
 
     public static boolean isInstalled(Context context, String packageName) {
         PackageManager packageManager = context.getPackageManager();// 获取packagemanager
-        List installedList = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
-        Iterator iterator = installedList.iterator();
+        List<PackageInfo> installedList = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        Iterator<PackageInfo> iterator = installedList.iterator();
         PackageInfo info;
         String name;
         while (iterator.hasNext()) {
-            info = (PackageInfo) iterator.next();
+            info =  iterator.next();
             name = info.packageName;
             if (name.equals(packageName)) {
                 return true;

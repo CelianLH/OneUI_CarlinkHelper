@@ -14,14 +14,15 @@ import com.baidu.BaiduMap.carlifeapplauncher.adapter.FakeStart;
 import com.baidu.BaiduMap.carlifeapplauncher.adapter.OpenProvider;
 import com.baidu.BaiduMap.deeplink.DeepLinkService;
 
+import java.util.Objects;
+
 public class MiniMapActivity extends AppCompatActivity {
-    private Context mContex;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_mini_map);
-        mContex = this;
         ApplicationUtil.initAppList(this);
         ApplicationUtil.initSettings(this);
     }
@@ -30,11 +31,13 @@ public class MiniMapActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(CarLinkData.getStringFromList(mContex,CarLinkData.sp_dock_map_pkg)==CarLinkData.pkgNameAmap){
-            FakeStart.StartMiniMap(mContex);
+        if(Objects.equals(CarLinkData.getStringFromList(this, CarLinkData.sp_dock_map_pkg), CarLinkData.pkgNameAmap)){
+            FakeStart.StartMiniMap(this);
         }else {
-            FakeStart.Start(mContex,CarLinkData.getStringFromList(mContex,CarLinkData.sp_dock_map_pkg));
+            FakeStart.StartCommon(this,CarLinkData.getStringFromList(this,CarLinkData.sp_dock_map_pkg));
         }
+
+
 
         if (OpenProvider.isConnected(this)) {
             if (DeepLinkService.getInstance() == null) {
@@ -45,6 +48,8 @@ public class MiniMapActivity extends AppCompatActivity {
                 intent.setData(parse);
                 intent.addFlags(0x10104000);
                 startActivity(intent);
+            }else {
+                DeepLinkService.getInstance().resume();
             }
         }
     }

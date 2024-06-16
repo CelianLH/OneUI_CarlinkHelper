@@ -33,7 +33,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -91,21 +93,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        finish();
+    }
 
     @Override
     public void onStop() {
         if (has_widget) {
             appWidgetHost.stopListening();
         }
+
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        if (musicUI != null) {
-            musicUI.onDestroy();
-        }
+//        if (musicUI != null) {
+//            musicUI.onDestroy();
+//        }
         super.onDestroy();
+
     }
 
     private void background() {
@@ -130,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void opacity() {
-        int opacity = (int) (Double.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString("cardopacity", "60")) / 100 * 255);
+        int opacity = (int) (Double.parseDouble(PreferenceManager.getDefaultSharedPreferences(this).getString("cardopacity", "60")) / 100 * 255);
         int color = ContextCompat.getColor(this, R.color.maincard_background_color);
         color = ColorUtils.setAlphaComponent(color, opacity);
         binding.containerA.setBackgroundColor(color);
@@ -139,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void radius() {
-        int radius = Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString("radius", "50"));
+        int radius = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("radius", "50"));
         Common.setBgRadius(binding.containerA, radius);
         Common.setBgRadius(binding.containerB, radius);
         Common.setBgRadius(binding.containerC, radius);
@@ -173,13 +182,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         binding.containerA.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
-                Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString("weightA", "6"))));
+                Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("weightA", "6"))));
         binding.right.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,
-                Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString("weightRight", "4"))));
+                Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("weightRight", "4"))));
         binding.containerB.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0,
-                Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString("weightB", "4"))));
+                Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("weightB", "4"))));
         binding.containerC.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0,
-                Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString("weightC", "6"))));
+                Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("weightC", "6"))));
 
 
         binding.containerA.setFocusable(false);
@@ -264,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }
 
-        int margin = Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(this).getString("margin", "15"));
+        int margin = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("margin", "15"));
         Common.setMargin(binding.containerA, margin, margin, margin, margin);
         Common.setMargin(binding.containerB, margin, margin, margin, margin);
         Common.setMargin(binding.containerC, margin, margin, margin, margin);
@@ -347,13 +356,11 @@ public class MainActivity extends AppCompatActivity {
             configureIntent.setComponent(providerInfo.configure);
             configureIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
-            if (configureIntent != null) {
-                try {
-                    Log.i(TS, "有配置");
-                    appWidgetHost.startAppWidgetConfigureActivityForResult(this, appWidgetId, 0, REQUEST_CONFIGURE, null);
-                } catch (Exception e) {
-                    Log.i(TS, "有配置，发生错误");
-                }
+            try {
+                Log.i(TS, "有配置");
+                appWidgetHost.startAppWidgetConfigureActivityForResult(this, appWidgetId, 0, REQUEST_CONFIGURE, null);
+            } catch (Exception e) {
+                Log.i(TS, "有配置，发生错误");
             }
         } else {
             finishSetAppWidget(appWidgetId);
@@ -443,6 +450,7 @@ public class MainActivity extends AppCompatActivity {
             oss.close();
             Log.i(TS, "已保存插件设置");
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -453,6 +461,7 @@ public class MainActivity extends AppCompatActivity {
             oss.close();
             Log.i(TS, "已保存插件设置");
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -464,6 +473,7 @@ public class MainActivity extends AppCompatActivity {
             oss.close();
             Log.i(TS, "已加载插件设置");
         } catch (Exception e) {
+            e.printStackTrace();
 
         }
     }
@@ -477,7 +487,7 @@ public class MainActivity extends AppCompatActivity {
                 if (data != null) {
                     int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
                     if (data.hasExtra(AppWidgetManager.EXTRA_APPWIDGET_ID)) {
-                        appWidgetId = data.getExtras().getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
+                        appWidgetId = Objects.requireNonNull(data.getExtras()).getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
                     }
                     if (resultCode == RESULT_OK) {
                         Log.i(TS, "选取插件：成功");
@@ -494,7 +504,7 @@ public class MainActivity extends AppCompatActivity {
 
             case REQUEST_CONFIGURE:
                 if (data != null) {
-                    int appWidgetId = data.getExtras().getInt(
+                    int appWidgetId = Objects.requireNonNull(data.getExtras()).getInt(
                             AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
                     if (resultCode == RESULT_OK) {
                         Log.i(TS, "配置插件：成功");

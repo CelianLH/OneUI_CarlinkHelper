@@ -10,12 +10,10 @@ public class MusicServiceNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent != null && intent.getAction() != null) {
-            switch (intent.getAction()) {
-                case "kill_MusicService":
-                    if (MainActivity.mainActivity == null&& MediaSessionConnectionOperator.getInstance(null)!=null) {
-                        MediaSessionConnectionOperator.getInstance(null).disconnect();
-                    }
-                    break;
+            if (intent.getAction().equals("kill_MusicService")) {
+                if (MainActivity.mainActivity == null && MediaSessionConnectionOperator.getInstance(null) != null) {
+                    MediaSessionConnectionOperator.getInstance(null).disconnect();
+                }
             }
         }
     }

@@ -32,7 +32,7 @@ import com.baidu.BaiduMap.carlifeapplauncher.adapter.FakeStart;
 
 public class WidgetRight {
 
-    private Context context;
+    private final Context context;
     private WindowManager wm;
     private LinearLayout navbar_wrapper;
     public static View navbar_view;
@@ -64,7 +64,7 @@ public class WidgetRight {
         Insets insets = windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.navigationBars() | WindowInsets.Type.displayCutout());
         this.radius = (int) (insets.left * 0.55);
         navbar_view = View.inflate(context, R.layout.overlay_right, null);
-        int opacity = (int) (Double.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString("godmode_opacity", "100")) / 100 * 255);
+        int opacity = (int) (Double.parseDouble(PreferenceManager.getDefaultSharedPreferences(context).getString("godmode_opacity", "100")) / 100 * 255);
         String rgb_string = PreferenceManager.getDefaultSharedPreferences(context).getString("godmode_rgb", "55#55#55");
         String[] rgb_array = rgb_string.split("#");
         int trans = Color.argb(opacity, Integer.parseInt(rgb_array[0]), Integer.parseInt(rgb_array[1]), Integer.parseInt(rgb_array[2]));
@@ -89,10 +89,11 @@ public class WidgetRight {
         constructView("navi");
         constructView("music");
 
-        navbar_view.setMinimumHeight(Integer.valueOf(PreferenceManager.getDefaultSharedPreferences(context).getString("min_height", "0")));
+        navbar_view.setMinimumHeight(Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context).getString("min_height", "0")));
         wm.addView(navbar_view, lp);
 
         WindowInsetsControllerCompat controllerCompat = ViewCompat.getWindowInsetsController(navbar_view);
+        assert controllerCompat != null;
         controllerCompat.hide(WindowInsetsCompat.Type.statusBars());
         controllerCompat.hide(WindowInsetsCompat.Type.navigationBars());
         controllerCompat.hide(WindowInsetsCompat.Type.ime());
@@ -219,8 +220,7 @@ public class WidgetRight {
             //lp.height = LinearLayout.LayoutParams.WRAP_CONTENT;
 
             SharedPreferences s = PreferenceManager.getDefaultSharedPreferences(context);
-            int widthRight = Integer.parseInt(s.getString("overlay_right_width", "480"));
-            lp.width = widthRight;
+            lp.width = Integer.parseInt(s.getString("overlay_right_width", "480"));
             lp.verticalWeight = 1;
             wm.updateViewLayout(navbar_view, lp);
             Common.setBgRadius(navbar_view, 0);
@@ -242,7 +242,7 @@ public class WidgetRight {
             try {
                 wm.removeView(navbar_view);
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
         shown = false;

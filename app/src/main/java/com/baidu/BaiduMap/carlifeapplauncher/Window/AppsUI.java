@@ -47,6 +47,7 @@ public class AppsUI {
                     break;
             }
             if(!CarLinkData.getBoolean(context,CarLinkData.sp_overlay_left_dock_corner_always,false)){
+                assert drawable != null;
                 drawable.setAlpha(30);
             }
             constraintLayout.setBackground(drawable);

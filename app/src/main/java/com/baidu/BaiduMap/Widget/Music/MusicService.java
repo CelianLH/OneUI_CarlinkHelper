@@ -20,8 +20,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 
+import com.baidu.BaiduMap.ConstantData.CarLinkData;
+import com.baidu.BaiduMap.Utils.ToastUtil;
+import com.baidu.BaiduMap.carlifeapplauncher.adapter.FakeStart;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MusicService {
 
@@ -123,7 +129,7 @@ public class MusicService {
             service_onMetadataChanged(metadata);
         }
     };
-    private AudioManager audioManager;
+    private final AudioManager audioManager;
 
 
     @NonNull
@@ -138,7 +144,7 @@ public class MusicService {
     }
 
     private boolean focus_dead = false;
-//    private boolean aquire_album_from_notification;
+    //    private boolean aquire_album_from_notification;
     private Boolean lock_music_player;
 
 
@@ -223,7 +229,9 @@ public class MusicService {
         //new controller and callback
         try {
             mediaControllerCompat = new MediaControllerCompat(context, focus);
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mediaControllerCompat.registerCallback(mediaControllerCallback);
         save_lock_music_player(context, mediaControllerCompat.getPackageName());
         //Get App Name
@@ -260,7 +268,7 @@ public class MusicService {
             ApplicationInfo temp_info = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
             name = pm.getApplicationLabel(temp_info).toString();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return name;
     }
@@ -448,7 +456,26 @@ public class MusicService {
 
     public void play() {
         if (focus == null) {
-            //return;
+            KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY);
+            try {
+                audioManager.dispatchMediaKeyEvent(event);
+                mediaControllerCompat.getTransportControls().play();
+            } catch (Exception e) {
+                    Timer timer = new Timer();
+                    TimerTask task = new TimerTask() {
+                        public void run() {
+                            try {
+                            audioManager.dispatchMediaKeyEvent(event);
+                            mediaControllerCompat.getTransportControls().play();
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                    };
+                    timer.schedule(task, 5500);
+            }
+            //FakeStart.Start(context, CarLinkData.getStringFromList(context,CarLinkData.sp_dock_music_pkg));
+            return;
         }
         if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("switch_preference_1", false)) {
             KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY);
@@ -456,7 +483,7 @@ public class MusicService {
         } else {
             KeyEvent event = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY);
             audioManager.dispatchMediaKeyEvent(event);
-            //mediaControllerCompat.getTransportControls().play();
+            mediaControllerCompat.getTransportControls().play();
         }
     }
 

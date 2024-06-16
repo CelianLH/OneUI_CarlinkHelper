@@ -22,7 +22,7 @@ import java.util.List;
 public class MusicListAdapter extends RecyclerView.Adapter<MusicListAdapter.ViewHolder> {
 
     private static List<MediaBrowserCompat.MediaItem> items;
-    private Context context;
+    private final Context context;
     private MusicService musicService;
 
     public MusicListAdapter(Context context, MusicService musicService) {

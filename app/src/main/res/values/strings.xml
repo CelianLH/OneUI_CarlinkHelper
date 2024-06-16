@@ -63,4 +63,6 @@
     <string name="developer">Developer Home</string>
     <string name="message_first_boot">This application is completely free, and the only publishing platform is \"Cool  Market\". If you obtain this application through payment, you will be deceived</string>
     <string name="confirm">Confirm</string>
+    <string name="preference_width_right_music_icon">Display the icon in the upper right corner of the music card</string>
+    <string name="preference_width_right_music_icon_summary">When not displayed, the icon is transparent and can still be clicked</string>
 </resources>

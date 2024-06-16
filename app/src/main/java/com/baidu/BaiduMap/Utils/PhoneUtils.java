@@ -24,9 +24,6 @@ import java.util.regex.Pattern;
 
 public class PhoneUtils {
 
-    private static TelephonyManager mTM;
-    private static PhoneStateListener mPSL;
-    private static int SimSignalStrength = -1;
     public static String getContentBetween(String source, String start, String end) {
         String regex = Pattern.quote(start) + "(.*?)" + Pattern.quote(end);
         Pattern pattern = Pattern.compile(regex);
@@ -36,50 +33,83 @@ public class PhoneUtils {
         }
         return null;
     }
+
     public static int getSiSignalStrength(Context context, int i) {
+        TelephonyManager mTM = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mTM = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).createForSubscriptionId(i);
         }
-        mPSL = new PhoneStateListener();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            setListeningSimCard(i);
+        if (mTM != null) {
+            try {
+                mTM.listen(setListeningSimCard(i), PhoneStateListener.LISTEN_SIGNAL_STRENGTHS | PhoneStateListener.LISTEN_CELL_INFO | PhoneStateListener.LISTEN_CELL_LOCATION);
+                SignalStrength signalStrength = mTM.getSignalStrength();
+                if (signalStrength != null) {
+                    int simSignalStrength = Integer.parseInt(getContentBetween(signalStrength.toString(), "SignalBarInfo{", ",rat").replaceAll("\\D", ""));
+                    if (simSignalStrength >= 0 && simSignalStrength <= 5) {
+                        return simSignalStrength;
+                    } else {
+                        return 0;
+                    }
+                } else return 0;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return 0;
+            }
+        } else {
+            return 0;
         }
-        if(mTM==null) {
-            mTM.listen(mPSL, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS | PhoneStateListener.LISTEN_CELL_INFO | PhoneStateListener.LISTEN_CELL_LOCATION);
-        }
-        //SimSignalStrength = mTM.getDataState();
-        SimSignalStrength = Integer.parseInt(getContentBetween(getContentBetween(mTM.getSignalStrength().toString(),"SignalBarInfo{",",rat"),"Level="," }"));
 
-//        Log.d("sim", "getSiSignalStrength: "+ SimSignalStrength);
+        //SimSignalStrength = mTM.getDataState();
+        //Log.d("sim", "getSiSignalStrength: "+ SimSignalStrength);
         //Log.d("sim", "getcardNum: "+ i);
-        //Log.d("sim", mTM.getSignalStrength().toString()+SimSignalStrength);
-        return SimSignalStrength;
+        //Log.d("sim", mTM.getSignalStrength().toString() + SimSignalStrength);
+
     }
 
     public static String getSiSignalType(Context context, int i) {
+        TelephonyManager mTM = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mTM = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).createForSubscriptionId(i);
         }
-        mPSL = new PhoneStateListener();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            setListeningSimCard(i);
-        }
-        mTM.listen(mPSL, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS | PhoneStateListener.LISTEN_CELL_INFO | PhoneStateListener.LISTEN_CELL_LOCATION );
+
+        assert mTM != null;
+        mTM.listen(setListeningSimCard(i), PhoneStateListener.LISTEN_SIGNAL_STRENGTHS | PhoneStateListener.LISTEN_CELL_INFO | PhoneStateListener.LISTEN_CELL_LOCATION);
         //SimSignalStrength = mTM.getDataState();
-        String type= getContentBetween(mTM.getSignalStrength().toString(),"SignalBarInfo{ ","Level=");
+        SignalStrength signalStrength = mTM.getSignalStrength();
+        String type = null;
+        if (signalStrength != null) {
+            type = getContentBetween(signalStrength.toString(), "SignalBarInfo{ ", "Level=");
+        }
+
         //Log.d("sim"+"slot"+i, mTM.getSignalStrength().toString());
         //Log.d("sim", type);
+        if (type != null) {
+            type = type.toLowerCase();
+            if (!type.isEmpty()) {
+                if (type.contains("nr")) {
+                    return "nr";
+                } else if (type.contains("lte")) {
+                    return "lte";
+                } else return "2g";
+            }
+        } else {
+            return "2g";
+        }
+
         return type;
     }
 
-    private static void setListeningSimCard(int subId) {
+    private static PhoneStateListener setListeningSimCard(int subId) {
+        PhoneStateListener mPSL= new PhoneStateListener();
         try {
             Field field = PhoneStateListener.class.getDeclaredField("mSubId");
             field.setAccessible(true);
-            field.set(mPSL, new Integer(subId));
+            field.set(mPSL, subId);
+            return mPSL;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return mPSL;
     }
     //如何调用获取双卡信号强度
     //NetworkDevice networkDev = new NetworkDevice(mContext);
@@ -92,9 +122,7 @@ public class PhoneUtils {
     public static boolean checkSIMExist(Context context, int type) {
         boolean result = false;
         SubscriptionManager mSubscriptionManager = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-            mSubscriptionManager = SubscriptionManager.from(context);
-        }
+        mSubscriptionManager = SubscriptionManager.from(context);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -107,14 +135,12 @@ public class PhoneUtils {
             return false;
         }
         SubscriptionInfo sub = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-            sub = mSubscriptionManager.getActiveSubscriptionInfoForSimSlotIndex(type);
-        }
+        sub = mSubscriptionManager.getActiveSubscriptionInfoForSimSlotIndex(type);
 
         if (null != sub) {
             result = true;
         }
-        Log.d("sim", "checkSIMExist"+type+ "result: "+result);
+        Log.d("sim", "checkSIMExist" + type + "result: " + result);
         return result;
     }
 }

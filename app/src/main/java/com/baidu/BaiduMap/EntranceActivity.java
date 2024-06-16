@@ -41,8 +41,12 @@ public class EntranceActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //FakeStart.StartMiniMapBar(this);
-        FakeStart.StartMiniMapToContext2(this);
+        if (CarLinkData.getStringFromList(this, CarLinkData.sp_dock_map_pkg).equals(CarLinkData.pkgNameAmap)) {
+            FakeStart.StartMiniMapBar(this);
+        }else {
+            FakeStart.Start(this,CarLinkData.getStringFromList(this,CarLinkData.sp_dock_map_pkg));
+        }
+        //FakeStart.StartMiniMapToContext2(this);
         if (getIntent().getData() != null) {
 
             String uri = Objects.requireNonNull(getIntent().getData()).toString();
@@ -50,12 +54,13 @@ public class EntranceActivity extends AppCompatActivity {
             if (uri.startsWith("baidumap://hicarmap/direction")) {
                 Uri u = Uri.parse(uri);
                 String dest = u.getQueryParameter("destination");
+                assert dest != null;
                 String[] arr = dest.split("\\|");
                 String dest_String = arr[0].substring(5);
                 Log.i("MAPTESTING", "bar:dest_String:" + dest_String);
                 String dest_po = arr[1].substring(7);
                 String[] dest_po_arr = dest_po.split(",");
-                double[] doubles = LocationUtil.bd09_To_Gcj02(new Double(dest_po_arr[0]), new Double(dest_po_arr[1]));
+                double[] doubles = LocationUtil.bd09_To_Gcj02(Double.parseDouble(dest_po_arr[0]), Double.parseDouble(dest_po_arr[1]));
                 String dest_po_la = Double.toString(doubles[0]);
                 Log.i("MAPTESTING", "bar:dest_po_la:" + dest_po_la);
                 String dest_po_ln = Double.toString(doubles[1]);
@@ -76,8 +81,9 @@ public class EntranceActivity extends AppCompatActivity {
             if (uri.startsWith("baidumap://hicarmap/navi?")) {
                 Uri u = Uri.parse(uri);
                 String dest = u.getQueryParameter("location");
+                assert dest != null;
                 String[] arr = dest.split(",");
-                double[] doubles = LocationUtil.bd09_To_Gcj02(new Double(arr[0]), new Double(arr[1]));
+                double[] doubles = LocationUtil.bd09_To_Gcj02(Double.parseDouble(arr[0]), Double.parseDouble(arr[1]));
                 String dest_po_la = Double.toString(doubles[0]);
                 Log.i("MAPTESTING", "bar:dest_po_la:" + dest_po_la);
                 String dest_po_ln = Double.toString(doubles[1]);

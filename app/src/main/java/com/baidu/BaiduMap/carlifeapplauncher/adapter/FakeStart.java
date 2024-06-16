@@ -61,19 +61,22 @@ public class FakeStart {
 
     @SuppressLint("WrongConstant")
     public static void StartMiniMapToContext2(Context context) {
+        if (CarLinkData.getStringFromList(context,CarLinkData.sp_dock_map_pkg).equals(CarLinkData.pkgNameAmap)) {
+            StartMiniMapBar(context);
+        }
         Intent i = new Intent();
         i.setClass(context, MiniMapActivity.class);
         ActivityOptions ao = ActivityOptions.makeBasic();
         ao.setLaunchDisplayId(context.getDisplay().getDisplayId());
         i.addFlags(0x10104000);
         context.startActivity(i, ao.toBundle());
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            public void run() {
-                StartMiniMapBar(context);
-            }
-        };
-        timer.schedule(task, 500);
+//        Timer timer = new Timer();
+//        TimerTask task = new TimerTask() {
+//            public void run() {
+//                StartMiniMapBar(context);
+//            }
+//        };
+//        timer.schedule(task, 500);
 
     }
 
@@ -120,6 +123,40 @@ public class FakeStart {
     }
 
     @SuppressLint("WrongConstant")
+    public static void StartCommon(Context context,String pkg) {
+
+        ActivityManager mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        mActivityManager.killBackgroundProcesses(pkg);
+
+        Intent i = new Intent(Intent.CATEGORY_LAUNCHER, null);
+        i.setPackage(pkg);
+        List<ResolveInfo> allApps = context.getPackageManager().queryIntentActivities(i, 0);
+        ResolveInfo info = null;
+        for (ResolveInfo ri : allApps) {
+            info = ri;
+            break;
+        }
+        if (info != null) {
+            Intent launchIntent = new Intent(Intent.ACTION_MAIN);
+            launchIntent.setFlags(807403520);
+            launchIntent.setFlags(0x30200000);
+            launchIntent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+            ActivityOptions ao = ActivityOptions.makeBasic();
+            ao.setLaunchDisplayId(context.getDisplay().getDisplayId());
+            try {
+                context.startActivity(launchIntent, ao.toBundle());
+                //  Toast.makeText(context, "启动成功", Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                //Toast.makeText(context, "启动失败，默认模式启动", Toast.LENGTH_LONG).show();
+                StartDefault(context, pkg);
+            }
+        } else {
+            //Toast.makeText(context, "无适配，默认模式启动", Toast.LENGTH_LONG).show();
+            StartDefault(context, pkg);
+        }
+    }
+
+    @SuppressLint("WrongConstant")
     public static void StartMiniMap(Context context) {
 
 
@@ -147,16 +184,16 @@ public class FakeStart {
 
             //launchIntent.putExtra("isHiCarMode", true);
             //launchIntent.putExtra("isHiCar", true);
-            launchIntent.putExtra("isActivityMetricsFirst", true);
+            //launchIntent.putExtra("isActivityMetricsFirst", true);
             launchIntent.putExtra("isUcarMode", true);
             launchIntent.putExtra("isVivoCarLinkMode", true);
-            launchIntent.putExtra("isSamsungCarLifeMode", true);
+            //launchIntent.putExtra("isSamsungCarLifeMode", true);
             launchIntent.putExtra("screenMode", 2);
-            launchIntent.putExtra("UCarBigMapDisplayId", context.getDisplay().getDisplayId());
-            launchIntent.putExtra("UCarSmallMapDisplayId", context.getDisplay().getDisplayId());
+            //launchIntent.putExtra("UCarBigMapDisplayId", context.getDisplay().getDisplayId());
+            //launchIntent.putExtra("UCarSmallMapDisplayId", context.getDisplay().getDisplayId());
             launchIntent.putExtra("displayId", context.getDisplay().getDisplayId());
             launchIntent.putExtra("isUCarNaviUseVerticalScreenLayout", true);
-            launchIntent.putExtra("isHiCarNaviUseVerticalScreenLayout", true);
+            //launchIntent.putExtra("isHiCarNaviUseVerticalScreenLayout", true);
             launchIntent.setFlags(807403520);
             launchIntent.setFlags(0x30200000);
             launchIntent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
@@ -204,17 +241,17 @@ public class FakeStart {
             //launchIntent.putExtra("isHiCarMode", true);
             //launchIntent.putExtra("isHiCar", true);
 
-            launchIntent.putExtra("isActivityMetricsFirst", true);
+            //launchIntent.putExtra("isActivityMetricsFirst", true);
             launchIntent.putExtra("isUcarMode", true);
             launchIntent.putExtra("isVivoCarLinkMode", true);
-            launchIntent.putExtra("isSamsungCarLifeMode", true);
+            //launchIntent.putExtra("isSamsungCarLifeMode", true);
             launchIntent.putExtra("screenMode", 2);
             launchIntent.putExtra("magicType", 1);
-            launchIntent.putExtra("UCarBigMapDisplayId", context.getDisplay().getDisplayId());
-            launchIntent.putExtra("UCarSmallMapDisplayId", context.getDisplay().getDisplayId());
+            //launchIntent.putExtra("UCarBigMapDisplayId", context.getDisplay().getDisplayId());
+            //launchIntent.putExtra("UCarSmallMapDisplayId", context.getDisplay().getDisplayId());
             launchIntent.putExtra("displayId", context.getDisplay().getDisplayId());
             launchIntent.putExtra("isUCarNaviUseVerticalScreenLayout", true);
-            launchIntent.putExtra("isHiCarNaviUseVerticalScreenLayout", true);
+            //launchIntent.putExtra("isHiCarNaviUseVerticalScreenLayout", true);
             launchIntent.setFlags(807403520);
             launchIntent.setFlags(0x30200000);
             launchIntent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
@@ -263,16 +300,16 @@ public class FakeStart {
 
             //launchIntent.putExtra("isHiCarMode", true);
             //launchIntent.putExtra("isHiCar", true);
-            launchIntent.putExtra("isActivityMetricsFirst", true);
+            //launchIntent.putExtra("isActivityMetricsFirst", true);
             launchIntent.putExtra("isUcarMode", true);
             launchIntent.putExtra("isVivoCarLinkMode", true);
-            launchIntent.putExtra("isSamsungCarLifeMode", true);
+            //launchIntent.putExtra("isSamsungCarLifeMode", true);
             launchIntent.putExtra("screenMode", 1);
-            launchIntent.putExtra("UCarBigMapDisplayId", context.getDisplay().getDisplayId());
-            launchIntent.putExtra("UCarSmallMapDisplayId", context.getDisplay().getDisplayId());
+            //launchIntent.putExtra("UCarBigMapDisplayId", context.getDisplay().getDisplayId());
+            //launchIntent.putExtra("UCarSmallMapDisplayId", context.getDisplay().getDisplayId());
             launchIntent.putExtra("displayId", context.getDisplay().getDisplayId());
             launchIntent.putExtra("isUCarNaviUseVerticalScreenLayout", true);
-            launchIntent.putExtra("isHiCarNaviUseVerticalScreenLayout", true);
+            //launchIntent.putExtra("isHiCarNaviUseVerticalScreenLayout", true);
             launchIntent.setFlags(807403520);
             launchIntent.setFlags(0x30200000);
             //launchIntent.setData(Uri.parse("amapuriucar://ucar/rootCarProjectionMap?sourceApplication=com.vivo.ucar&keepStack=1&clearStack=0"));

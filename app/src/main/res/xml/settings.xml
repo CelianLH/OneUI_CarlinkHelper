@@ -9,7 +9,6 @@
         android:title="@string/language"
         app:defaultValue="0"
         app:useSimpleSummaryProvider="true" />
-
     <PreferenceScreen
         android:key="about"
         android:title="@string/about" />

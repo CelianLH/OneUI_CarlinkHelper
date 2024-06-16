@@ -50,8 +50,8 @@ public class MediaAppListAdapter extends RecyclerView.Adapter<MediaAppListAdapte
         //set icon size
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(c);
         LinearLayout.LayoutParams imglp = (LinearLayout.LayoutParams) holder.img.getLayoutParams();
-        imglp.height = Integer.valueOf(sharedPreferences.getString("launcher_icon_size", "200"));
-        imglp.width = Integer.valueOf(sharedPreferences.getString("launcher_icon_size", "200"));
+        imglp.height = Integer.parseInt(sharedPreferences.getString("launcher_icon_size", "200"));
+        imglp.width = Integer.parseInt(sharedPreferences.getString("launcher_icon_size", "200"));
         holder.img.setLayoutParams(imglp);
 
         try {

@@ -10,6 +10,7 @@ public class OpenProvider {
         ContentResolver cr = context.getContentResolver();
         try {
             Bundle bd = cr.call("com.samsung.android.carlink.carlife.openprovider", "get_connection_status", null, null);
+            assert bd != null;
             int status = bd.getInt("connection_status");
             return true;
         } catch (Exception e) {
@@ -19,11 +20,12 @@ public class OpenProvider {
 
     public static boolean isConnected(Context context)
     {
-        return true;
-//        ContentResolver cr = context.getContentResolver();
-//        Bundle bd = cr.call("com.samsung.android.carlink.carlife.openprovider", "get_connection_status", null, null);
-//        int status = bd.getInt("connection_status");
-//        return status == 1;
+        //return true;
+        ContentResolver cr = context.getContentResolver();
+        Bundle bd = cr.call("com.samsung.android.carlink.carlife.openprovider", "get_connection_status", null, null);
+        assert bd != null;
+        int status = bd.getInt("connection_status");
+        return status == 1;
     }
 
 

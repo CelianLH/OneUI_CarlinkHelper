@@ -3,28 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-<!--    <uses-permission-->
-<!--        android:name="android.permission.WRITE_SETTINGS"-->
-<!--        tools:ignore="ProtectedPermissions" />-->
-<!--    <uses-permission-->
-<!--        android:name="android.permission.WRITE_SECURE_SETTINGS"-->
-<!--        tools:ignore="ProtectedPermissions" />-->
+    <!--    <uses-permission-->
+    <!--        android:name="android.permission.WRITE_SETTINGS"-->
+    <!--        tools:ignore="ProtectedPermissions" />-->
+    <!--    <uses-permission-->
+    <!--        android:name="android.permission.WRITE_SECURE_SETTINGS"-->
+    <!--        tools:ignore="ProtectedPermissions" />-->
     <uses-permission
         android:name="android.permission.STATUS_BAR_SERVICE"
         tools:ignore="ProtectedPermissions" />
-<!--    <uses-permission-->
-<!--        android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"-->
-<!--        tools:ignore="ProtectedPermissions" />-->
+    <!--    <uses-permission-->
+    <!--        android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"-->
+    <!--        tools:ignore="ProtectedPermissions" />-->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-<!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
+    <!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-<!--    <uses-permission-->
-<!--        android:name="android.permission.BIND_APPWIDGET"-->
-<!--        tools:ignore="ProtectedPermissions" />-->
+    <!--    <uses-permission-->
+    <!--        android:name="android.permission.BIND_APPWIDGET"-->
+    <!--        tools:ignore="ProtectedPermissions" />-->
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission
         android:name="android.permission.FORCE_STOP_PACKAGES"
@@ -35,53 +36,64 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-<!--    <uses-permission android:name="android.permission.INTERNET" />-->
-<!--    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />-->
+    <!--    <uses-permission android:name="android.permission.INTERNET" />-->
+    <!--    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
-<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
-<!--    <uses-permission-->
-<!--        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"-->
-<!--        tools:ignore="ScopedStorage" />-->
+    <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+    <!--    <uses-permission-->
+    <!--        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"-->
+    <!--        tools:ignore="ScopedStorage" />-->
 
     <application
         android:name=".BaseApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/OneUITheme">
         <activity
             android:name=".SettingsActivity"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize"
-            android:launchMode="singleInstance"
-            android:exported="true">
-
+            android:exported="true"
+            android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+                <category
+                    android:name="android.intent.category.DEFAULT" />
+                <category
+                    android:name="android.intent.category.APP_MAPS" />
             </intent-filter>
         </activity>
         <activity
             android:name=".EntranceActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
             android:excludeFromRecents="true"
             android:exported="true"
-            android:launchMode="singleInstance"
-            android:taskAffinity="map.bar">
+            android:launchMode="singleTask"
+            android:taskAffinity="com.baidu.BaiduMap.BigMapActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="vivo.intent.action.carlink.kit" />
-
                 <category android:name="vivo.intent.category.carlink.kit" />
             </intent-filter>
             <intent-filter>
                 <action android:name="samsung.intent.action.carlink.kit" />
-
                 <category android:name="samsung.intent.category.carlink.kit" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.ucar.intent.action.UCAR" />
+                <category android:name="com.ucar.intent.category.UCAR" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.baidunavi.slight.lock" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -96,15 +108,22 @@
         </activity>
         <activity
             android:name=".MiniMapActivity"
+            android:configChanges="fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
             android:excludeFromRecents="true"
             android:exported="true"
             android:label="MiniMapActivity"
-            android:launchMode="singleInstance"
-            android:taskAffinity="map.mini">
+            android:launchMode="singleTop"
+            android:supportsPictureInPicture="true"
+            android:taskAffinity="com.baidu.BaiduMap.SmallMapActivity"
+            android:windowSoftInputMode="adjustResize"
+            tools:targetApi="n">
             <intent-filter>
                 <action android:name="samsung.intent.action.carlink.kit.map" />
-
                 <category android:name="samsung.intent.category.carlink.kit.map" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.ucar.intent.action.UCAR" />
+                <category android:name="com.ucar.intent.category.MAP_PREVIEW" />
             </intent-filter>
         </activity>
         <activity
@@ -113,9 +132,8 @@
             android:excludeFromRecents="true"
             android:exported="true"
             android:label="MainActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="landscape"
-            android:taskAffinity="com.banqu.music.CarUI">
+            android:launchMode="singleTask"
+            android:taskAffinity="com.baidu.BaiduMap.Apps">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -133,8 +151,8 @@
             android:excludeFromRecents="true"
             android:exported="true"
             android:label="Deeplink"
-            android:launchMode="singleInstance"
-            android:taskAffinity="deep.exe"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.baidu.BaiduMap.SmallMapActivity"
             android:theme="@style/empty_activity_theme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -153,8 +171,11 @@
             android:excludeFromRecents="true"
             android:exported="true"
             android:label="DeepLinkService"
-            android:launchMode="singleInstance"
-            android:taskAffinity="deep.exe">
+            android:launchMode="singleTask"
+            android:supportsPictureInPicture="true"
+            android:windowSoftInputMode="adjustResize"
+            android:taskAffinity="com.baidu.BaiduMap.Dock"
+            tools:targetApi="n">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -170,7 +191,7 @@
             android:name=".deeplink.MusicServiceDeepLink"
             android:excludeFromRecents="true"
             android:exported="true"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:taskAffinity="com.banqu.music.CarUI"
             android:theme="@style/empty_activity_theme">
@@ -211,6 +232,8 @@
             android:name="com.baidu.baidumaps.oemdata.OemContentProvider"
             android:authorities="com.baidu.baidumaps.oemdata.OemContentProvider"
             android:exported="true" />
+        <!--            android:readPermission="com.baidu.permission.READ_MAP_STATUS"-->
+
     </application>
 
 </manifest>

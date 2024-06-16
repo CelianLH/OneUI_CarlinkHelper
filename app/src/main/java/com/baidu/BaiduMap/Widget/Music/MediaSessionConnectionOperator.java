@@ -86,7 +86,7 @@ public class MediaSessionConnectionOperator {
 //            serviceReady = false;
             mediaSessionConnectionOperator = null;
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 

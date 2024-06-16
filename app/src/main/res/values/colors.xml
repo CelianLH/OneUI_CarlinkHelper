@@ -23,7 +23,7 @@
     <color name="music_player_icon">#FFFCFCFC</color>
     <color name="music_player_progress_front">#FFF6F6F6</color>
     <color name="music_player_text">#FFFCFCFC</color>
-    <color name="music_player_progress_back">#996E7C87</color>
+    <color name="music_player_progress_back">#99CFEAFE</color>
 
 
     <color name="purple_200">#FFBB86FC</color>

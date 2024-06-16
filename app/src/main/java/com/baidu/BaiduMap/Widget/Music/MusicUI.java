@@ -4,13 +4,16 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaMetadata;
+import android.media.session.MediaController;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.media.MediaMetadataCompat;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,12 +23,14 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.ColorUtils;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.baidu.BaiduMap.ConstantData.CarLinkData;
 import com.baidu.BaiduMap.R;
 import com.baidu.BaiduMap.Widget.FloatView.WidgetRight;
 import com.baidu.BaiduMap.carlifeapplauncher.adapter.Common;
@@ -43,10 +48,10 @@ import java.util.TimerTask;
 public class MusicUI implements MusicUIInterface {
 
     private MusicService musicService;
-    private static String TAG = "MusicUI";
+    private static final String TAG = "MusicUI";
     private String pkgName = null;
-    private boolean show_album;
-    private Context context;
+    private final boolean show_album;
+    private final Context context;
 
     private boolean adaptive;
 
@@ -58,7 +63,7 @@ public class MusicUI implements MusicUIInterface {
     @SuppressLint("HandlerLeak")
     private static final Handler mHandler = new Handler() {
         // 接收到消息后处理
-        public void handleMessage(Message msg) {
+        public void handleMessage(@NonNull Message msg) {
             prog += 500;
             binding.musicProgress.setProgress(prog);
             super.handleMessage(msg);
@@ -93,7 +98,10 @@ public class MusicUI implements MusicUIInterface {
             binding.musk.setVisibility(View.GONE);
             musicService = MusicService.getInstance(context.getApplicationContext());
             musicService.setMusicUIInterface(this);
-
+            List<MediaController> playerlist1  = MusicService.getInstance(context.getApplicationContext()).getActiveSessions();
+            if (!playerlist1.isEmpty()){
+                musicService.switchFromToken(MediaSessionCompat.Token.fromToken(playerlist1.get(0).getSessionToken()));
+            }
 
             binding.LastMusic.setOnClickListener(view -> musicService.previous());
             binding.LastMusic.setFocusable(false);
@@ -103,8 +111,12 @@ public class MusicUI implements MusicUIInterface {
 
             binding.Play.setFocusable(false);
 
+            if(CarLinkData.getBoolean(context,CarLinkData.sp_enable_overlay_right_music_icon,false)){
+                binding.SwitchSource.setAlpha(0.9f);
+            }else {
+                binding.SwitchSource.setAlpha(0.f);
+            }
 
-            binding.SwitchSource.setAlpha(0.f);
             binding.SwitchSource.setOnClickListener(view -> {
                 //view
                 View pop_playerlist_view = View.inflate(context, R.layout.playerpopwindows, null);
@@ -147,7 +159,7 @@ public class MusicUI implements MusicUIInterface {
                 } else {
                     try {
                         NavBar.setRightInvisible();
-                        FakeStart.Start(context, "com.sec.android.app.music");
+                        FakeStart.Start(context, CarLinkData.getStringFromList(context,CarLinkData.sp_dock_music_pkg));
                     } catch (Exception e) {
 
                     }
@@ -269,6 +281,7 @@ public class MusicUI implements MusicUIInterface {
         GradientDrawable mBackShadowDrawableLR = new GradientDrawable(
                 GradientDrawable.Orientation.BOTTOM_TOP, mBackShadowColors);
         mBackShadowDrawableLR.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+        bm = bm.copy(Bitmap.Config.ARGB_8888, true);
         mBackShadowDrawableLR.setBounds(0, bm.getHeight()/2, bm.getWidth() , bm.getHeight());
         Canvas canvas = new Canvas(bm);
         mBackShadowDrawableLR.draw(canvas);
@@ -307,6 +320,7 @@ public class MusicUI implements MusicUIInterface {
                 timer = null;
             }
         }
+
         /*switch (state.getState()) {
             case PlaybackStateCompat.STATE_PLAYING:
                 timer = new Timer(true);

@@ -1,6 +1,7 @@
 package com.baidu.BaiduMap.Utils.Theme
 
 import android.content.Context
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 
 /**
@@ -60,5 +61,11 @@ class NightModeUtils constructor(context: Context) {
             ThemeMode.MODE_ALWAYS_OFF -> AppCompatDelegate.MODE_NIGHT_NO
             ThemeMode.MODE_FOLLOW_SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         })
+    }
+
+    fun isDarkThemeOn(context: Context): Boolean {
+        val nightModeFlags = context.resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK
+        return nightModeFlags == Configuration.UI_MODE_NIGHT_YES
     }
 }

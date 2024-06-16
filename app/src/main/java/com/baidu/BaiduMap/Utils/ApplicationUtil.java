@@ -27,7 +27,7 @@ public class ApplicationUtil {
             add("com.banqu.samsung.music");
             add("com.android.settings");
         }};
-        if (CarLinkData.getArrayList(context, CarLinkData.sp_dock_music_pkg).size() == 0) {
+        if (CarLinkData.getArrayList(context, CarLinkData.sp_dock_music_pkg).isEmpty()) {
             for (String pkgName : musicList) {
                 if (ApplicationUtil.isPackageInstalled(context, pkgName)) {
                     CarLinkData.putArrayList(context, CarLinkData.sp_dock_music_pkg, new ArrayList<>() {{
@@ -44,7 +44,7 @@ public class ApplicationUtil {
             add("com.tencent.map");
             add("com.android.settings");
         }};
-        if (CarLinkData.getArrayList(context, CarLinkData.sp_dock_map_pkg).size() == 0) {
+        if (CarLinkData.getArrayList(context, CarLinkData.sp_dock_map_pkg).isEmpty()) {
             for (String pkgName : mapList) {
                 if (ApplicationUtil.isPackageInstalled(context, pkgName)) {
                     CarLinkData.putArrayList(context, CarLinkData.sp_dock_map_pkg, new ArrayList<>() {{
@@ -61,7 +61,7 @@ public class ApplicationUtil {
             add("com.sec.android.daemonapp");
             add("com.android.settings");
         }};
-        if (CarLinkData.getArrayList(context, CarLinkData.sp_dock_any_pkg).size() == 0) {
+        if (CarLinkData.getArrayList(context, CarLinkData.sp_dock_any_pkg).isEmpty()) {
             for (String pkgName : anyList) {
                 if (ApplicationUtil.isPackageInstalled(context, pkgName)) {
                     CarLinkData.putArrayList(context, CarLinkData.sp_dock_any_pkg, new ArrayList<>() {{
@@ -83,7 +83,7 @@ public class ApplicationUtil {
             add("mark.via");
             add("com.android.settings");
         }};
-        if (CarLinkData.getArrayList(context, CarLinkData.sp_launcher_apps).size() == 0) {
+        if (CarLinkData.getArrayList(context, CarLinkData.sp_launcher_apps).isEmpty()) {
             ArrayList<String> favList = new ArrayList<>();
             for (String pkgName : launcherList) {
                 if (ApplicationUtil.isPackageInstalled(context, pkgName)) {
@@ -99,6 +99,7 @@ public class ApplicationUtil {
         if(!CarLinkData.getBoolean(context,"Initialized",false)){
             CarLinkData.putBoolean(context,CarLinkData.sp_enable_overlay,true);
             CarLinkData.putBoolean(context,CarLinkData.sp_enable_overlay_right,true);
+            CarLinkData.putBoolean(context,CarLinkData.sp_enable_overlay_right_music_icon,false);
             CarLinkData.putBoolean(context,CarLinkData.sp_overlay_left_hide_visibility,false);
             CarLinkData.putBoolean(context,CarLinkData.sp_overlay_left_dock_corner_always,false);
             CarLinkData.putBoolean(context,CarLinkData.sp_dock_music,true);
@@ -241,6 +242,7 @@ public class ApplicationUtil {
                 appInfo.icon = temp_info.loadIcon(pm);
                 appInfoArrayList.add(appInfo);
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return appInfoArrayList;
