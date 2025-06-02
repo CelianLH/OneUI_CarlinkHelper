@@ -34,7 +34,7 @@
 <img loading="lazy" src="img/Screenshot_20240614_135925_Carlink Helper.jpg" height="350" alt="Mobile 4"/>
 
 <h3>
-<a href="https://github.com/CelianLH/OneUI_CarlinkHelper/releases/download/release/Carlink.Helper_20.2.30_2024.06.18.apk">下载apk</a>
+<a href="https://github.com/CelianLH/OneUI_CarlinkHelper/releases/download/release-2024%2F06%2F18/Carlink.Helper_20.2.30_2024.06.18.apk">下载apk</a>
 </h3>
 
 <br><hr>
